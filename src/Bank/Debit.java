@@ -9,6 +9,7 @@ public class Debit extends Bank {
     private static final int ACC_DIGIT = 2;
     private int value = 0;
     private List<Double> transactions;
+    private double currentBalance;
 
 
     public Debit(String holder, String accountType, String SSN, double initialDeposit) {
@@ -16,6 +17,7 @@ public class Debit extends Bank {
         value++;
         accountNumber = createAccNumber();
         transactions = new ArrayList<>();
+
     }
     //Account number consists of either 1 for savings or 2 for debit, last 2 digits of SSN, unique 5-digit,
     //random 3-digit
@@ -38,11 +40,11 @@ public class Debit extends Bank {
         return accountType + lastSSN + secondLastSSN + uniqueNumber + intArray[0] + intArray[1] + intArray[2];
     }
 
-    @Override
-   public void showInfo() {
-        System.out.println("ACCOUNT HOLDER : " + holder);
-        System.out.println("ACCOUNT TYPE : " + accountType);
-        System.out.println("ACCOUNT NUMBER : " + accountNumber);
-        System.out.println("INITIAL DEPOSIT : " + initialDeposit);
+    public void transactions(){
+
+        for (int i = 0; i < transactions.size(); i++){
+            System.out.println(transactions.get(i));
+        }
     }
+
 }

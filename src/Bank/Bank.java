@@ -1,5 +1,9 @@
 package Bank;
 
+import Customer.AccountHolder;
+
+import java.util.List;
+
 public abstract class Bank {
 
     protected String holder;
@@ -7,6 +11,8 @@ public abstract class Bank {
     protected String SSN;
     protected double initialDeposit;
     protected String accountNumber;
+    protected double currentBalance;
+    protected List<AccountHolder> accountHolders;
 
     public Bank(String holder, String accountType, String SSN, double initialDeposit) {
         this.holder = holder;
@@ -15,18 +21,44 @@ public abstract class Bank {
         this.initialDeposit = initialDeposit;
     }
 
-    void deposit(double amount){
-
+    void deposit(double amount) {
+        currentBalance += amount;
+        System.out.println("your new balance = " + currentBalance);
     }
 
-    void withdrawal(double amount){
-
+    boolean withdrawal(double amount) {
+        if (amount < currentBalance) {
+            System.out.println("insufficient funds in your account");
+            return false;
+        } else {
+            currentBalance -= amount;
+            return true;
+        }
     }
 
-    void transfer(double amount, String accountName){
-
+    boolean transfer(double amount, String accountHolder) {
+        if ((currentBalance > amount) && findAccount(accountHolder)) {
+            System.out.println(amount + " successfully transferred to " + accountHolder);
+            return true;
+        }
+        return false;
     }
-    public void showInfo(){
 
+
+    public void showInfo() {
+
+        System.out.println("ACCOUNT HOLDER : " + holder);
+        System.out.println("ACCOUNT TYPE : " + accountType);
+        System.out.println("ACCOUNT NUMBER : " + accountNumber);
+        System.out.println("INITIAL DEPOSIT : " + initialDeposit);
+    }
+
+    private boolean findAccount(String accountHolder) {
+        for (int i = 0; i < accountHolders.size(); i++) {
+            if (accountHolders.get(i).getName().equals(accountHolder)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
