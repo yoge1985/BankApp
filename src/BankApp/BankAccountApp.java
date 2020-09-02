@@ -1,6 +1,7 @@
 package BankApp;
 
 import Bank.Debit;
+import Bank.Savings;
 
 public class BankAccountApp {
 
@@ -21,15 +22,17 @@ public class BankAccountApp {
 
     public static void main(String[] args) {
 
-        Debit debit = new Debit("joe","debit","1234567894",200);
-        Debit debit1 = new Debit("brad","debit","0011223345",400);
-        Debit debit2 = new Debit("tim","debit","9876543210",128);
+        Savings savings = new Savings("joe","01234556455",200);
+        Debit debit = new Debit("bill","11223344555",400);
+        Debit debit1 = new Debit("ray","33221155665",230);
 
+        savings.createAccNumber();
+        savings.showInfo();
+        debit.createAccNumber();
         debit.showInfo();
-        System.out.println("=================");
+        debit1.createAccNumber();
         debit1.showInfo();
-        System.out.println("==================");
-        debit2.showInfo();
+
 
 
     }

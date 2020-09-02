@@ -20,4 +20,8 @@ public class AccountHolder {
     public String getName() {
         return name;
     }
+
+    public double getCurrentBalance() {
+        return currentBalance;
+    }
 }
