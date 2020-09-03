@@ -21,11 +21,11 @@ public abstract class Bank {
 
     void deposit(double amount) {
 
-        currentBalance = amount;
+        currentBalance += amount;
 
     }
 
-    boolean withdrawal(double amount) {
+    public boolean withdrawal(double amount) {
         if (currentBalance > amount){
             currentBalance -= amount;
             return true;
@@ -34,8 +34,11 @@ public abstract class Bank {
             return false;
         }
     }
-    boolean transfer(double amount, String accHolder) {
+    public boolean transfer(double amount, String accHolder) {
         if ((currentBalance > amount) && findAccount(accHolder)){
+            Bank bank = returnObject(accHolder);
+            bank.deposit(amount);
+            withdrawal(amount);
             System.out.println(amount + " successfully transferred to " + accHolder);
             return true;
         }
@@ -76,13 +79,23 @@ public abstract class Bank {
         System.out.println("=================================");
     }
 
-    protected boolean findAccount(String accountHolder) {
+    private boolean findAccount(String accHolder) {
         for (int i = 0; i < accounts.size(); i++) {
-            if (accounts.get(i).holder.equals(accountHolder)) {
+            if (accounts.get(i).holder.equals(accHolder)) {
                 return true;
             }
         }
         return false;
+    }
+
+    private Bank returnObject(String name) {
+        Bank bank = null;
+        for (int i = 0; i < accounts.size(); i++){
+            if (accounts.get(i).holder.equals(name)) {
+                bank = accounts.get(i);
+            }
+        }
+        return bank;
     }
 
     public  void showList(){

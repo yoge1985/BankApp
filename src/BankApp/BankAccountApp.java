@@ -33,6 +33,11 @@ public class BankAccountApp {
         debit1.createAccNumber();
         debit1.showInfo();
         debit.showList();
+        debit.withdrawal(200);
+        debit.showInfo();
+        debit.transfer(20,"joe");
+        debit.showInfo();
+        savings.showInfo();
 
 
 
