@@ -11,11 +11,8 @@ public class Savings extends Bank {
         holder = holderDetail;
         SSN = SSNumber;
         accountType = "1";
-        initialDeposit = initialAmount;
-
+        deposit(initialAmount);
         value++;
-
-
 
 
     }

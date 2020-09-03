@@ -32,6 +32,9 @@ public class BankAccountApp {
         debit.showInfo();
         debit1.createAccNumber();
         debit1.showInfo();
+        debit.showList();
+
+
 
 
 

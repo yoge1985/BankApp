@@ -1,42 +1,45 @@
 package Bank;
 
-import Customer.AccountHolder;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Bank {
 
     protected String accountType;
     protected String accountNumber;
-    protected double initialDeposit;
-    private int currentBalance;
+    private double currentBalance;
     protected String holder;
     protected String SSN;
-    protected int value = 1;
+    protected int value;
+    protected static List<Bank> accounts = new ArrayList<Bank>();
 
-//    protected double currentBalance;
-    protected List<AccountHolder> accountHolders;
+    public Bank() {
 
-//    public Bank() {
-//        if (Savings){
-//            accountType = 1;
-//        }else {
-//            accountType = 2;
-//        }
-//    }
+        accounts.add(this);
+    }
+
 
     void deposit(double amount) {
+
+        currentBalance = amount;
 
     }
 
     boolean withdrawal(double amount) {
-        return true;
+        if (currentBalance > amount){
+            currentBalance -= amount;
+            return true;
+        }else {
+            System.out.println("insufficient funds");
+            return false;
+        }
     }
-    boolean transfer(double amount, String accountHolder) {
-        if ((currentBalance > amount) && findAccount(accountHolder)) {
-            System.out.println(amount + " successfully transferred to " + accountHolder);
+    boolean transfer(double amount, String accHolder) {
+        if ((currentBalance > amount) && findAccount(accHolder)){
+            System.out.println(amount + " successfully transferred to " + accHolder);
             return true;
         }
+        System.out.println("transaction could not be made");
         return false;
     }
     //account number is made up of Acc. type + last 2 digits of SSN + unique 5-digit + random 3-digit
@@ -54,7 +57,6 @@ public abstract class Bank {
         for (int i = 0; i < 3; i++){
             rand = (int) (Math.random() * range) + min;
             intArray[i] = rand;
-
         }
 
          accountNumber = accountType + secondLastSSN + lastSSN + uniqueNumber + intArray[0] +
@@ -69,17 +71,28 @@ public abstract class Bank {
         System.out.println("ACCOUNT HOLDER : " + holder);
         System.out.println("ACCOUNT TYPE : " + accountType);
         System.out.println("ACCOUNT NUMBER : " + accountNumber);
-        System.out.println("INITIAL DEPOSIT : " + initialDeposit);
+        System.out.println("CURRENT BALANCE: " + currentBalance);
         System.out.println("SSN: " + SSN);
         System.out.println("=================================");
     }
 
-    private boolean findAccount(String accountHolder) {
-        for (int i = 0; i < accountHolders.size(); i++) {
-            if (accountHolders.get(i).getName().equals(accountHolder)) {
+    protected boolean findAccount(String accountHolder) {
+        for (int i = 0; i < accounts.size(); i++) {
+            if (accounts.get(i).holder.equals(accountHolder)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public  void showList(){
+        for (int i = 0; i < this.accounts.size(); i++){
+            System.out.println(accounts.get(i));
+        }
+    }
+
+    @Override
+    public String toString() {
+        return holder + " -->" + accountNumber;
     }
 }
